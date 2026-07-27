@@ -36,6 +36,34 @@ ccx-v1 = "ccx_keys.locator:CCXLocator"
 [project.entry-points.usage_key]
 ccx-block-v1 = "ccx_keys.locator:CCXBlockUsageLocator"
 
+[dependency-groups]
+# Base test packages, no version pins - let uv.lock handle it
+test-base = [
+    "coverage",
+    "ddt",
+    "lazy-object-proxy",
+    "mock",
+    "pytest",
+]
+test = [
+    {include-group = "test-base"},
+]
+quality = [
+    {include-group = "test"},
+    "edx-lint",
+    "pylint",
+    "pycodestyle",
+]
+# Minimal CI group: just what's needed to invoke tox
+ci = [
+    "tox",
+    "tox-uv",
+]
+dev = [
+    {include-group = "quality"},
+    {include-group = "ci"},
+]
+
 [tool.setuptools_scm]
 version_scheme = "only-version"
 local_scheme = "no-local-version"
@@ -46,6 +74,22 @@ include = ["ccx_keys"]
 
 [tool.setuptools.exclude-package-data]
 "*" = ["tests*", "*.tests*", "spec*", "*.spec*"]
+
+[tool.uv]
+package = true
+
+#  DO NOT EDIT constraint-dependencies DIRECTLY.
+#  This list is managed by `edx_lint write_uv_constraints`
+#  and will be overwritten the next time `make upgrade` is run.
+#  - GLOBAL constraints: edit edx_lint/files/common_constraints.txt
+#  - REPO-SPECIFIC constraints: edit [tool.edx_lint].uv_constraints in this file
+constraint-dependencies = [
+    "Django<6.0",
+    "elasticsearch<7.14.0",
+]
+
+[tool.edx_lint]
+uv_constraints = []
 
 [tool.coverage.run]
 branch = true
