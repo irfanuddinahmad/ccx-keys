@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edx-ccx-keys"
+description = "Opaque key support custom courses on edX"
+readme = "README.rst"
+license = "AGPL-3.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+authors = [
+    {name = "edX", email = "oscm@edx.org"},
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+dynamic = ["version"]
+dependencies = [
+    "edx-opaque-keys>=2.0.0",
+    "six>=1.10.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/openedx/ccx-keys"
+
+[project.entry-points.context_key]
+ccx-v1 = "ccx_keys.locator:CCXLocator"
+
+[project.entry-points.usage_key]
+ccx-block-v1 = "ccx_keys.locator:CCXBlockUsageLocator"
+
+[tool.setuptools_scm]
+version_scheme = "only-version"
+local_scheme = "no-local-version"
+fallback_version = "0.0.0"
+
+[tool.setuptools.packages.find]
+include = ["ccx_keys"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["tests*", "*.tests*", "spec*", "*.spec*"]
+
+[tool.coverage.run]
+branch = true
+source = ["ccx_keys"]
+omit = [
+    "*/tests/*",
+    "*/migrations/*",
+    "*/__pycache__/*",
+    "*/settings.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
