@@ -70,6 +70,7 @@ local_scheme = "no-local-version"
 fallback_version = "0.0.0"
 
 [tool.setuptools.packages.find]
+where = ["src"]
 include = ["ccx_keys"]
 
 [tool.setuptools.exclude-package-data]
@@ -98,7 +99,7 @@ allow_zero_version = true
 
 [tool.coverage.run]
 branch = true
-source = ["ccx_keys"]
+source = ["src/ccx_keys"]
 omit = [
     "*/tests/*",
     "*/migrations/*",
