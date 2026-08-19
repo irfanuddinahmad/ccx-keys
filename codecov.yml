@@ -3,17 +3,7 @@ coverage:
     project:
       default:
         target: auto
-        # This tooling migration (openedx/public-engineering#506) changed the
-        # coverage measurement scope: ccx_keys/tests/test_ccx_keys.py is now
-        # correctly omitted from [tool.coverage.run] instead of counting the
-        # test file's own (trivially self-covered) statements toward the
-        # package's coverage percentage. That's a one-time discontinuity in
-        # this PR's own base-vs-head comparison (~3-4%), not a regression in
-        # production-code coverage. No threshold added: `target: auto`
-        # compares against each PR's own base commit, so once this PR
-        # merges, the new percentage becomes the baseline for every future
-        # comparison -- there's no lingering gap to accommodate, and this
-        # status check isn't required for merging anyway.
+        # One-time coverage-measurement shift from this migration; see PR description.
     patch:
       default:
         target: 90%
