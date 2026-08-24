@@ -4,6 +4,7 @@ coverage:
       default:
         target: auto
         # One-time coverage-measurement shift from this migration; see PR description.
+        threshold: 5%
     patch:
       default:
         target: 90%
