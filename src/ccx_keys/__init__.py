@@ -1,8 +1,5 @@
 """init"""
 
-from importlib.metadata import PackageNotFoundError, version
+from importlib.metadata import version
 
-try:
-    __version__ = version("edx-ccx-keys")
-except PackageNotFoundError:  # pragma: no cover
-    pass
+__version__ = version("edx-ccx-keys")
